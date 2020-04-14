@@ -3,7 +3,7 @@
    Input Data */
 
 data Problem9;
-input times;
+input rate;
 cards;
 65
 88
@@ -34,9 +34,11 @@ run;
 
 /* Problem 9
    Page 84
-   Univariate - Get Statistics */
+*/
 
+ods listing;
+ods graphics off;
 proc univariate data=Problem9 plot normal;
 Title 'Assignment #1 Problem 9 Page 84';
-var times;
-run;
+var rate;
+run; 
