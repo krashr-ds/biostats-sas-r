@@ -16,3 +16,16 @@ proc contents data=hca202._all_ details;run;
 proc means data=hca202.frmgham alpha=0.05 clm mean median;
 var CURSMOKE AGE BMI SEX SYSBP LDLC;
 run;
+
+/*Problem #2*/
+proc sort data=hca202.frmgham; by sex; run;
+proc means alpha=0.05 clm mean median;
+var CURSMOKE AGE BMI SEX SYSBP LDLC;
+by sex;
+run;
+
+/*Problem #3*/
+proc means alpha=0.1 clm mean median;
+var CURSMOKE AGE BMI SEX SYSBP LDLC;
+by sex;
+run;
