@@ -25,7 +25,7 @@ by sex;
 run;
 
 /*Problem #3*/
-proc means alpha=0.1 clm mean median;
+proc means alpha=0.01 clm mean median;
 var CURSMOKE AGE BMI SEX SYSBP LDLC;
 by sex;
 run;
