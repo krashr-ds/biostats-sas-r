@@ -5,14 +5,14 @@
    smoking status CURSMOKE and two of the following variables: 
    AGE, BMI, SYSBP, LDL 										*/
 
-/* Part 1 - CURSMOKE, BMI & SYSBP */
+/* Part 1 - CURSMOKE, BMI & SYSBP ; 95% CI */
 proc univariate data=hca202.frmgham alpha=0.05 plot normal;
 	Title 'Assignment #2';
 	var CURSMOKE BMI SYSBP;
 	histogram;
 run;
 
-/* Part 2 - by SEX */
+/* Part 2 - by SEX ; 95% CI */
 proc univariate data=hca202.frmgham alpha=0.05 plot normal;
 	Title 'Assignment #2';
 	var CURSMOKE BMI SYSBP;
@@ -20,7 +20,7 @@ proc univariate data=hca202.frmgham alpha=0.05 plot normal;
 	histogram;
 run;
 
-/* Part 3 - alpha 0.1 */
+/* Part 3 - alpha 0.1 ; 90% CI */
 proc univariate data=hca202.frmgham alpha=0.1 plot normal;
 	Title 'Assignment #2';
 	var CURSMOKE BMI SYSBP;
