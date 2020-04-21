@@ -21,7 +21,7 @@ proc univariate data=hca202.frmgham alpha=0.05 plot normal;
 	histogram / normal;
 run;
 
-/* Part 3 - alpha 0.1 ; 90% CI */
+/* Part 3 - increase alpha to 0.1 ; 90% CI */
 proc univariate data=hca202.frmgham alpha=0.1 plot normal;
 	Title 'Assignment #2-C';
 	var CURSMOKE BMI SYSBP;
