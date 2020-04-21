@@ -13,16 +13,17 @@ proc univariate data=hca202.frmgham alpha=0.05 plot normal;
 run;
 
 /* Part 2 - by SEX ; 95% CI */
+proc sort data=hca202.frmgham; by sex; run;
 proc univariate data=hca202.frmgham alpha=0.05 plot normal;
-	Title 'Assignment #2';
-	var CURSMOKE BMI SYSBP;
+	Title 'Assignment #2-B';
 	by sex;
-	histogram;
+	var CURSMOKE BMI SYSBP;
+	histogram / normal;
 run;
 
 /* Part 3 - alpha 0.1 ; 90% CI */
 proc univariate data=hca202.frmgham alpha=0.1 plot normal;
-	Title 'Assignment #2';
+	Title 'Assignment #2-C';
 	var CURSMOKE BMI SYSBP;
 	by sex;
 	histogram;
