@@ -40,3 +40,12 @@ proc univariate data=hca202.frmgham alpha=0.1 plot normal;
 	by sex;
 	histogram;
 run;
+
+/*Proc Freq*/
+proc freq data=hca202.frmgham;
+    tables sex * bmi;
+run;
+
+proc freq data=hca202.frmgham;
+    tables sex * sysbp;
+run;
