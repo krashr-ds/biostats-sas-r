@@ -45,10 +45,10 @@ run;
 
 Proc format;
  Value bmiGroups
-  0-18.4 = '0-18.4'
-  18.5-24.9 = '18.5-24.9'
-  25-29.9 = '25-29.9'
-  30-39.9 = '30-39.9'
+  0-18.49 = '0-18.4'
+  18.5-24.99 = '18.5-24.9'
+  25-29.99 = '25-29.9'
+  30-39.99 = '30-39.9'
   40-high = '40+'
   ;
 Run;
@@ -58,7 +58,7 @@ Proc freq data = hca202.frmgham;
  Format bmi bmiGroups.;
 Run;  
 
-/* data hca202.frmgham;
+/*data hca202.frmgham;
     set hca202.frmgham;
     length bmiGroup $10.;
     if      bmi  < 18.5             then bmiGroup = '<18.5';
@@ -69,26 +69,31 @@ Run;
 
     label bmiGroup = 'BMI Category: Underweight, Normal, Overweight, Obese and Morbidly Obese';
 run;
-*/
 
+
+proc freq data=hca202.frmgham;
+    tables bmiGroups * sex /missprint;
+run;
+*/
 
 Proc format;
  Value sbpGroups
-  0-89.9 =    'low'
-  90-119.9 =  'normal'
-  120-139.9 = 'pre-hypertension'
-  140-159.9 = 'hypertension'
-  160-179.9 = 'severe hypertension'
-  180-high =  'hypertensive crisis'
+  0-90.9 = 'low'
+  91-120.9 = 'normal'
+  121-140.9 = 'pre-hypertension'
+  141-160.9 = 'hypertension'
+  161-179.9 = 'severe hypertension'
+  180-high = 'hypertensive crisis'
   ;
 Run;
 
-Proc freq data = hca202.frmgham;
- Tables sysbp * sex /missprint;
- Format sysbp sbpGroups.;
-Run; 
+proc freq data=hca202.frmgham;
+    tables sysbp * sex;
+    Format sysbp sbpGroups.;
+run;
 
 /* With CHISQ */
+
 Proc freq data = hca202.frmgham;
  Tables bmi * sex /chisq;
  Format bmi bmiGroups.;
@@ -98,3 +103,9 @@ Proc freq data = hca202.frmgham;
  Tables sysbp * sex /chisq;
  Format sysbp sbpGroups.;
 Run; 
+
+
+/* CMH */
+proc freq data= hca202.frmgham;
+   tables sex * cursmoke * cvd / cmh;
+run;
