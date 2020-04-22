@@ -87,3 +87,14 @@ Proc freq data = hca202.frmgham;
  Tables sysbp * sex /missprint;
  Format sysbp sbpGroups.;
 Run; 
+
+/* With CHISQ */
+Proc freq data = hca202.frmgham;
+ Tables bmi * sex /chisq;
+ Format bmi bmiGroups.;
+Run; 
+
+Proc freq data = hca202.frmgham;
+ Tables sysbp * sex /chisq;
+ Format sysbp sbpGroups.;
+Run; 
