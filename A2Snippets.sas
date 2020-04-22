@@ -42,10 +42,48 @@ proc univariate data=hca202.frmgham alpha=0.1 plot normal;
 run;
 
 /*Proc Freq*/
-proc freq data=hca202.frmgham;
-    tables sex * bmi;
-run;
 
-proc freq data=hca202.frmgham;
-    tables sex * sysbp;
+Proc format;
+ Value bmiGroups
+  0-18.4 = '0-18.4'
+  18.5-24.9 = '18.5-24.9'
+  25-29.9 = '25-29.9'
+  30-39.9 = '30-39.9'
+  40-high = '40+'
+  ;
+Run;
+
+Proc freq data = hca202.frmgham;
+ Tables bmi * sex /missprint;
+ Format bmi bmiGroups.;
+Run;  
+
+/* data hca202.frmgham;
+    set hca202.frmgham;
+    length bmiGroup $10.;
+    if      bmi  < 18.5             then bmiGroup = '<18.5';
+    else if bmi >= 18.5 and age <= 24.9 then bmiGroup = '18.5 - 24.9';
+    else if bmi >  24.9 and age <= 29.9 then bmiGroup = '25 - 29.9';
+    else if bmi >  29.9 and age <= 39.9 then bmiGroup = '30 - 39.9';
+    else if bmi >  40                   then bmiGroup = '40+';
+
+    label bmiGroup = 'BMI Category: Underweight, Normal, Overweight, Obese and Morbidly Obese';
 run;
+*/
+
+
+Proc format;
+ Value sbpGroups
+  0-89.9 =    'low'
+  90-119.9 =  'normal'
+  120-139.9 = 'pre-hypertension'
+  140-159.9 = 'hypertension'
+  160-179.9 = 'severe hypertension'
+  180-high =  'hypertensive crisis'
+  ;
+Run;
+
+Proc freq data = hca202.frmgham;
+ Tables sysbp * sex /missprint;
+ Format sysbp sbpGroups.;
+Run; 
