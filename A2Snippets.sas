@@ -58,23 +58,6 @@ Proc freq data = hca202.frmgham;
  Format bmi bmiGroups.;
 Run;  
 
-/*data hca202.frmgham;
-    set hca202.frmgham;
-    length bmiGroup $10.;
-    if      bmi  < 18.5             then bmiGroup = '<18.5';
-    else if bmi >= 18.5 and age <= 24.9 then bmiGroup = '18.5 - 24.9';
-    else if bmi >  24.9 and age <= 29.9 then bmiGroup = '25 - 29.9';
-    else if bmi >  29.9 and age <= 39.9 then bmiGroup = '30 - 39.9';
-    else if bmi >  40                   then bmiGroup = '40+';
-
-    label bmiGroup = 'BMI Category: Underweight, Normal, Overweight, Obese and Morbidly Obese';
-run;
-
-
-proc freq data=hca202.frmgham;
-    tables bmiGroups * sex /missprint;
-run;
-*/
 
 Proc format;
  Value sbpGroups
