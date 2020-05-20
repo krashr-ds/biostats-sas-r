@@ -19,15 +19,25 @@ run;
 one predictor variable (age) and time between the baseline 
 and death (timedth) */
 
+/* Backwards ! 
 proc reg data=work.frmgham1;
     model age = timedth;
+run; */
+
+proc reg data=work.frmgham1;
+	model timedth = age;
 run;
 
 /* Question 3: Adjust the base model (above) for the effects 
 of angina, heartrate and BMI. */
 
+/* Also Backwards ! 
 proc reg data=work.frmgham1;
     model age = timedth angina heartrte bmi;
+run; */
+
+proc reg data=work.frmgham1;
+	model timedth = age angina heartrte bmi;
 run;
 
 /* EC 1: The glm proc: Evaluate the effect of age, sex and 
