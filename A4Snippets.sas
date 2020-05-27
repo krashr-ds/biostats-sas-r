@@ -6,7 +6,7 @@ libname hca202 "~/hca202";
 /* start with a subset of your data */
 data work.frmgham1;
     set hca202.frmgham;
-    where period = 3;
+    /* where period = 1; */
 run;
 
 proc format;
@@ -24,8 +24,7 @@ proc format;
         1 = 'Died';
     value ldlcF
     	0-100 = 'Normal'
-    	100-150 = 'Elevated'
-    	150-high = 'Yikes';
+    	101-high = 'Elevated';
     value ageGroupF
      	0-35.9 = '0-35'
  		36-45.9 = '36-45'
@@ -68,40 +67,72 @@ run;
 %let dat = work.frmgham2;
 /* END Provided Code */
 
+/* FROM SAMPLE  
+proc logistic data=&dat;
+    class sex (param = reference ref = 'Female');
+    model death (event='Died') = sex;
+run;*/
 
+/* MY OLD CODE 
 proc logistic data=&dat;
     title 'Assignment 4, Problem 1';
     class sex death;
     model death = sex;
 run;
+*/
 
+proc logistic data=&dat;
+    title 'Assignment 4, Problem 1';
+    class sex (param = reference ref = 'Female');
+    model death (event = 'Died') = sex;
+run;
+
+
+/* Likelihood of being a SMOKER - Male v. Female (ref) */
 proc logistic data=&dat;
     title 'Assignment 4, Problem 2';
-    class sex death cursmoke;
-    model cursmoke = sex;
+    class sex (param = reference ref = 'Female');
+    model cursmoke (event = 'Current smoker') = sex;
 run;
 
+/* Extra: Factor in being dead */
+proc logistic data=&dat;
+    title 'Assignment 4, Problem 2a';
+    class sex (param = reference ref = 'Female')
+          cursmoke (param = reference ref = 'Not current smoker');
+    model death (event = 'Died') = cursmoke;
+run;
+
+
+/* Likelihood of being a SMOKER given sex, age and BMI */
 proc logistic data=&dat;
     title 'Assignment 4, Problem 3';
-    class sex death;
-    model death = age sex bmi;
+    class sex (param = reference ref = 'Female') age bmi;
+    model cursmoke (event = 'Current smoker') = sex age bmi;
 run;
 
-proc logistic data=work.frmgham1;
+/* A similar model using diabetes as the outcome, adding LDLC 
+   Likelihood of DM given change in sex, age, bmi and LDLC levels */
+  /* THIS ONLY WORKS WITH THE FULL DATA SET */
+proc logistic data=&dat;
     title 'Assignment 4, Problem 4';
-    class sex death;
-    model diabetes = age sex bmi ldlc;
+    class sex (param = reference ref = 'Female') 
+          ldlc (param = reference ref = 'Normal') 
+          age (param = reference ref = '46-55')
+          bmi (param = reference ref = '25-29.9');
+    model diabetes (event = 'Has DM') = sex age bmi ldlc;
 run;
+
+
 
 /*Comparators*/
 
 
 proc freq data=&dat;
     tables sex * death;
-    tables sex * death * cursmoke;
-    tables sex * death * age;
-    tables sex * death * bmi;
-	tables diabetes * age * sex * bmi * ldlc;
+    tables sex * cursmoke;
+    tables age * bmi * cursmoke;
+	tables age * sex * bmi * ldlc * diabetes;
 run;
 
 
