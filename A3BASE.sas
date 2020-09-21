@@ -31,7 +31,7 @@ quit;
 /* EC - Problem 4 */
 /*linear model used with a ~N outcome */ 
 proc glm data=hca202.frmgham; 
-title 'Assignment #3, Problem 4'; 
+title 'Assignment 3, Problem 4'; 
 class sex; 
 model timedth = age sex bmi; 
 run; 
