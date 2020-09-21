@@ -26,3 +26,23 @@ proc reg data=hca202.frmgham;
 	Model timedth = age hdlc angina heartrte bmi;
 run;
 quit;
+
+
+/* EC - Problem 4 */
+/*linear model used with a ~N outcome */ 
+proc glm data=hca202.frmgham; 
+title 'Assignment #3, Problem 4'; 
+class sex; 
+model timedth = age sex bmi; 
+run; 
+quit; 
+
+/* EC - Problem 4a */
+/*linear model used with a binary outcome */ 
+
+proc glm data=hca202.frmgham; 
+title 'Assignment 3, Problem 4a'; 
+class sex death; 
+model death = age sex bmi; 
+run; 
+quit;
