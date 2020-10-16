@@ -1,8 +1,5 @@
-/* Problem 6
-   Page 83
-   Input Data */
-
-data Problem6;
+Title 'Problem 6 Page 83 of Text';
+data Problem06;
 input times;
 cards;
 8
@@ -17,11 +14,10 @@ cards;
 3
 run;
 
-/* Problem 6
-   Page 83
-   Univariate - Get Statistics */
+/* Request statistics */
 
-proc univariate data=Problem6 plot normal;
-Title 'Assignment #1 Problem 6 Page 83';
-var times;
+ods listing;
+ods graphics off;
+
+proc univariate data=Problem06 plot normal;
 run;
