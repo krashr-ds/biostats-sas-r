@@ -1,7 +1,7 @@
-/* Problem 12
-   Page 76
-   Input Data */
+options nodate;
 
+title 'Problem 12 Page 76 of Text';
+/* input data */
 data Problem12;
 input times;
 cards;
@@ -15,19 +15,14 @@ cards;
 5
 run;
 
-/* Problem 12
-   Page 76
-   Means */
+/* Request statistics */
 
-proc means mean median min p25 p50 p75 max std;
+proc means data = Problem12 mean median min p25 p50 p75 max std;
 var times;
 run;
 
-/* Problem 12
-   Page 76
-   Univariate */
+ods listing;
+ods graphics off;
 
 proc univariate data=Problem12 plot normal;
-Title 'Assignment #1, Problem 12 Page 76';
-var times;
 run;
