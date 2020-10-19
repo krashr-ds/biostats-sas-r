@@ -17,9 +17,10 @@ histogram cursmoke age bmi sex sysbp ldlc;
 run; 
 
 /* Now,  stratify by SEX.*/ 
-proc sort data= hca202.frmghamfrm; 
+proc sort data= hca202.frmgham; 
 by sex; 
 run; 
+
 proc univariate data=hca202.frmgham alpha=0.05; 
 var cursmoke age bmi sex sysbp ldlc; 
 histogram cursmoke age bmi sex sysbp ldlc; 
